@@ -1,4 +1,4 @@
-// //created a new vue app
+// * creating a new vue app
 // const app = Vue.createApp({
 //   // data: function() {
 //   data() { //ES6 shorthand - This is the data Option
@@ -10,15 +10,18 @@
 // })
 
 // const app = Vue.createApp({})
-// the ({}) is an Options object
-// always pass at least an empty object
+// ! the ({}) is an Options object
+// ! always pass at least an empty object
 
-// Vue is reactive and have a reactivity system that handels updating for us
+// ! Vue is reactive and have a reactivity system that handels updating for us
 
 const app = Vue.createApp({
   data() {
       return {
-          product: 'Socks'
+          product: 'Socks',
+          description: 'Comfy business',
+          image: './assets/images/socks_green.jpg',
+          url: 'https://www.vuemastery.com/'
       }
   }
 })
