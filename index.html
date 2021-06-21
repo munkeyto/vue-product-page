@@ -21,8 +21,13 @@
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
-            <p>In Stock</p>
-            <p>Out of Stock</p>
+            <!-- ! Will only render inStock if v-if is truthy -->
+            <p v-if="inventory > 10">In Stock</p>
+            <p v-else-if="inventory < 10 && inventory > 0">Stock Running Out!</p>
+            <p v-else>Out of Stock</p>
+            <!-- ! hides content instead of removing and adding content -->
+            <!-- <p v-show="inStock">In Stock</p> -->
+            <p v-show="onSale">On Sale</p>
             <a :href="url">More info here</a>
           </div>
         </div>
