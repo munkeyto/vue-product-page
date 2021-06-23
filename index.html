@@ -25,7 +25,14 @@
               <!-- ! runnings through the array and prints out each element individually -->
               <li v-for="detail in details">{{ detail }}</li>
             </ul>
+            <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
+            <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
             <!-- ! Will only render inStock if v-if is truthy -->
+            <ul>
+              <li v-for="size in sizes">
+                {{ size }}
+              </li>
+            </ul>
             <p v-if="inventory > 10">In Stock</p>
             <p v-else-if="inventory < 10 && inventory > 0">Stock Running Out!</p>
             <p v-else>Out of Stock</p>
