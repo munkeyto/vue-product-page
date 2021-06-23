@@ -21,6 +21,10 @@
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
+            <ul>
+              <!-- ! runnings through the array and prints out each element individually -->
+              <li v-for="detail in details">{{ detail }}</li>
+            </ul>
             <!-- ! Will only render inStock if v-if is truthy -->
             <p v-if="inventory > 10">In Stock</p>
             <p v-else-if="inventory < 10 && inventory > 0">Stock Running Out!</p>
