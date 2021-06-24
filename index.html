@@ -27,7 +27,7 @@
               <li v-for="detail in details">{{ detail }}</li>
             </ul>
             <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
-            <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
+            <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
             <ul>
               <li v-for="size in sizes">
                 {{ size }}
@@ -41,7 +41,9 @@
             <p v-show="onSale">On Sale</p>
             <a :href="url">More info here</a>
             <!-- ! v-on listens for an event. It is equal to the method name -->
-            <button class="button" v-on:click="addToCart">Add to Cart</button>
+            <!-- <button class="button" v-on:click="addToCart">Add to Cart</button> -->
+            <button class="button" @click="addToCart">Add to Cart</button>
+            <button class="button" @click="removeFromCart" :disabled="isActive">Remove form Cart</button>
           </div>
         </div>
       </div>
