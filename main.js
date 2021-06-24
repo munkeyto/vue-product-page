@@ -23,7 +23,8 @@ const app = Vue.createApp({
         description: 'green socks',
         image: './assets/images/socks_green.jpg',
         url: 'https://www.vuemastery.com/',
-        inventory: 20,
+        inStock: false,
+        // inventory: 20, <-- Used for conditional stock management
         onSale: false,
         details: ['50% cotton', '30% wool', '20% polyester'],
         variants: [

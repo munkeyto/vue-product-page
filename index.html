@@ -18,10 +18,12 @@
         <div class="product-container">
           <div class="product-image">
             <!-- // <img v-bind:src="image" alt=""> -->
-            <img :src="image" :alt="description">
+            <img :src="image" :alt="description" :class="{ 'out-of-stock-img': !inStock }">
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
+            <p v-if="inStock">In Stock</p>
+            <p v-else>Out of Stock</p>
             <ul>
               <!-- ! running through the array and prints out each element individually -->
               <li v-for="detail in details">{{ detail }}</li>
@@ -41,20 +43,26 @@
                 {{ size }}
               </li>
             </ul>
-            <!-- ! Will only render inStock if v-if is truthy -->
-            <p v-if="inventory > 10">In Stock</p>
-            <p v-else-if="inventory < 10 && inventory > 0">Stock Running Out!</p>
-            <p v-else>Out of Stock</p>
+            <!-- Alternative Stock conditional
+              / Will only render inStock if v-if is truthy
+              <p v-if="inventory > 10">In Stock</p>
+              <p v-else-if="inventory < 10 && inventory > 0">Stock Running Out!</p>
+              <p v-else>Out of Stock</p>
+            -->
             <!-- ! hides content instead of removing and adding content -->
             <p v-show="onSale">On Sale</p>
             <a :href="url">More info here</a>
             <!-- ! v-on listens for an event. It is equal to the method name -->
-            <!-- <button class="button" v-on:click="addToCart">Add to Cart</button> -->
+            <!-- ! Can add a class based on condition of a certain class thorough v-binding to a class and expressions -->
+            <!-- // <button class="button" v-on:click="addToCart">Add to Cart</button> -->
             <button 
-              class="button" 
-              @click="addToCart">
+              class="button"
+              :class="{ disabledButton: !inStock }" 
+              :disabled="!inStock"
+              @click="addToCart"
+            >
               Add to Cart
-          </button>
+            </button>
             <button class="button" @click="removeFromCart" :disabled="isActive">Remove form Cart</button>
           </div>
         </div>
