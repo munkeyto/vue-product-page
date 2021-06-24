@@ -20,6 +20,7 @@ const app = Vue.createApp({
       return {
         cart: 0,
         product: 'Socks',
+        brand: 'Vue Mastery',
         description: 'green socks',
         image: './assets/images/socks_green.jpg',
         url: 'https://www.vuemastery.com/',
@@ -44,6 +45,11 @@ const app = Vue.createApp({
     },
     removeFromCart() {
         this.cart -= 1;
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + ' ' + this.product;
     }
   }
 })
