@@ -32,5 +32,10 @@ const app = Vue.createApp({
         ],
         sizes: ["s", "m", "l", "xl"]
       }
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1;
+    }
   }
 })

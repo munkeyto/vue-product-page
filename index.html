@@ -40,7 +40,8 @@
             <!-- ! hides content instead of removing and adding content -->
             <p v-show="onSale">On Sale</p>
             <a :href="url">More info here</a>
-            <button class="button">Add to Cart</button>
+            <!-- ! v-on listens for an event. It is equal to the method name -->
+            <button class="button" v-on:click="addToCart">Add to Cart</button>
           </div>
         </div>
       </div>
