@@ -1,4 +1,6 @@
+// * specific lego blocks building web page
 app.component('product-display', {
+  //allows us to use html
   template:
     /* html */
     `<div class="product-display">
@@ -34,6 +36,7 @@ app.component('product-display', {
         <!-- ! v-on listens for an event. It is equal to the method name -->
         <!-- ! Can add a class based on condition of a certain class thorough v-binding to a class and expressions -->
         <!-- // <button class="button" v-on:click="addToCart">Add to Cart</button> -->
+        <p>Shipping {{ shipping }}</p>
         <button 
           class="button"
           :class="{ disabledButton: !inStock }" 
@@ -89,6 +92,19 @@ app.component('product-display', {
           return this.brand + ' ' + this.product + ' is on sale.'
       }
       return ''
+    },
+    shipping() {
+      if (this.premium) {
+        return 'Free'
+      }
+      return 2.99
     }
-  }
+  },
+  // wth props we can import data from outside the component
+  props: { //props option
+    premium: { //premium prop
+      type: Boolean,
+      required: true 
+    }
+  },
 })
