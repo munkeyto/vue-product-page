@@ -1,9 +1,17 @@
 // * specific lego blocks building web page
 app.component('product-display', {
+  // wth props we can import data from outside the component
+  props: { //props option
+    premium: { //premium prop
+      type: Boolean,
+      required: true 
+    }
+  },
   //allows us to use html
   template:
-    /* html */
-    `<div class="product-display">
+  /* html */
+  `
+  <div class="product-display">
     <div class="product-container">
       <div class="product-image">
         <img :src="image" :alt="description" :class="{ 'out-of-stock-img': !inStock }">
@@ -13,10 +21,8 @@ app.component('product-display', {
         <p v-if="onSale">{{ saleMessage }}</p>
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
-        <ul>
-          <!-- ! running through the array and prints out each element individually -->
-          <li v-for="detail in details">{{ detail }}</li>
-        </ul>
+        <product-details :details="details"></product-details>
+        
         <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
         <!-- ! assign the variant color to each circle on hover through style -->
         <div 
@@ -48,7 +54,8 @@ app.component('product-display', {
         <button class="button" @click="removeFromCart" :disabled="isActive">Remove form Cart</button>
       </div>
     </div>
-  </div>`,
+  </div>
+  `,
   data() {
     return {
       product: 'Socks',
@@ -99,12 +106,5 @@ app.component('product-display', {
       }
       return 2.99
     }
-  },
-  // wth props we can import data from outside the component
-  props: { //props option
-    premium: { //premium prop
-      type: Boolean,
-      required: true 
-    }
-  },
+  }
 })
