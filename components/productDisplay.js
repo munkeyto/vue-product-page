@@ -7,7 +7,7 @@ app.component('product-display', {
         <img :src="image" :alt="description" :class="{ 'out-of-stock-img': !inStock }">
       </div>
       <div class="product-info">
-        <h1 v-if>{{ title }}</h1>
+        <h1>{{ title }}</h1>
         <p v-if="onSale">{{ saleMessage }}</p>
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
@@ -45,5 +45,50 @@ app.component('product-display', {
         <button class="button" @click="removeFromCart" :disabled="isActive">Remove form Cart</button>
       </div>
     </div>
-  </div>`
+  </div>`,
+  data() {
+    return {
+      product: 'Socks',
+      brand: 'Vue Mastery',
+      url: 'https://www.vuemastery.com/',
+      onSale: true,
+      details: ['50% cotton', '30% wool', '20% polyester'],
+      variants: [
+        { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
+        { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 0 }
+      ],
+      sizes: ["s", "m", "l", "xl"],
+      isActive: false,
+      selectedVariant: 0
+    }
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1;
+    },
+    updateVariant(index) {
+      this.selectedVariant = index;
+    },
+    removeFromCart() {
+        this.cart -= 1;
+    }
+  },
+  // computed properties provide us a performance improvement because they cache the calculated value.
+  computed: {
+    title() {
+      return this.brand + ' ' + this.product;
+    },
+    image() {
+      return this.variants[this.selectedVariant].image
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].quantity
+    },
+    saleMessage() {
+      if (this.onSale) {
+          return this.brand + ' ' + this.product + ' is on sale.'
+      }
+      return ''
+    }
+  }
 })
