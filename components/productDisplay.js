@@ -51,7 +51,7 @@ app.component('product-display', {
         >
           Add to Cart
         </button>
-        <button class="button" @click="removeFromCart" :disabled="isActive">Remove form Cart</button>
+        <button class="button" @click="removeFromCart" :disabled="isActive">Remove from Cart</button>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@ app.component('product-display', {
       details: ['50% cotton', '30% wool', '20% polyester'],
       variants: [
         { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
-        { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 0 }
+        { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 5 }
       ],
       sizes: ["s", "m", "l", "xl"],
       isActive: false,
@@ -81,7 +81,8 @@ app.component('product-display', {
       this.selectedVariant = index;
     },
     removeFromCart() {
-        this.cart -= 1;
+        // this.cart -= 1;
+        this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
     }
   },
   // computed properties provide us a performance improvement because they cache the calculated value.

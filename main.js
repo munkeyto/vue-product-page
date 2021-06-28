@@ -18,6 +18,12 @@ const app = Vue.createApp({
   methods: {
     updateCart(id) {
       this.cart.push(id)
+    },
+    reduceCart(id) {
+      const index = this.cart.indexOf(id) //get the first postion of an elemnt in an array
+          if (index > -1) {
+              this.cart.splice(index, 1)
+          }
     }
   }
 })
