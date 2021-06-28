@@ -2,7 +2,7 @@ app.component('review-form', {
   template:
   /*html*/
   `
-  <form class="review-form">
+  <form class="review-form" @submit.prevent="onSubmit">
     <h3>Leave a Review</h3>
     <label for="name">Name</label>
     <input id="name" v-model="name" />
@@ -27,6 +27,22 @@ app.component('review-form', {
       name: '',
       review: '',
       rating: null
+    }
+  },
+  methods() {
+    onsubmit() {
+      let productReview = {
+        name: this.name,
+        review: this.review,
+        rating: this.rating
+      }
+      //sends the review data upwards
+      this.$emit('review-submitted', productReview)
+      
+      // clearing data field
+      this.name = ''
+      this.review = ''
+      this.rating = null
     }
   }
 })
