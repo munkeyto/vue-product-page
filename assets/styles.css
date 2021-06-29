@@ -144,10 +144,6 @@ a {
   text-decoration: none;
   color: #3A495E;
 }
-a:hover {
-  text-decoration: underline;
-}
-
 a:hover, .color-circle {
   cursor: pointer;
 }
