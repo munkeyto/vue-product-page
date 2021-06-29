@@ -42,10 +42,8 @@ app.component('review-form', {
         review: this.review,
         rating: this.rating
       }
-      //sends the review data upwards
       this.$emit('review-submitted', productReview)
       
-      // clearing data field
       this.name = ''
       this.review = ''
       this.rating = null
