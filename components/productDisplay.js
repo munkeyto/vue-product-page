@@ -14,14 +14,17 @@ app.component('product-display', {
   <div class="product-display">
     <div class="product-container">
       <div class="product-image">
-        <img :src="image" :alt="description" :class="{ 'out-of-stock-img': !inStock }">
+        <img :src="image" :class="{ 'out-of-stock-img': !inStock }">
       </div>
       <div class="product-info">
         <h1>{{ title }}</h1>
-        <p v-if="onSale">{{ saleMessage }}</p>
+        
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
-        <product-details :details="details"></product-details>
+        
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
         
         <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
         <!-- ! assign the variant color to each circle on hover through style -->
@@ -33,16 +36,13 @@ app.component('product-display', {
           :style="{ backgroundColor: variant.color }"
         >
         </div>
-        <ul>
-          <li v-for="size in sizes">
-            {{ size }}
-          </li>
-        </ul>
+
         <!-- <a :href="url">More info here</a> -->
         <!-- ! v-on listens for an event. It is equal to the method name -->
         <!-- ! Can add a class based on condition of a certain class thorough v-binding to a class and expressions -->
         <!-- // <button class="button" v-on:click="addToCart">Add to Cart</button> -->
         <p>Shipping {{ shipping }}</p>
+
         <button 
           class="button"
           :class="{ disabledButton: !inStock }" 
@@ -51,25 +51,26 @@ app.component('product-display', {
         >
           Add to Cart
         </button>
+        
         <button class="button" @click="removeFromCart" :disabled="isActive">Remove from Cart</button>
       </div>
     </div>
+    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview"></review-form>
   </div>
   `,
   data() {
     return {
       product: 'Socks',
       brand: 'Vue Mastery',
-      url: 'https://www.vuemastery.com/',
-      onSale: true,
       details: ['50% cotton', '30% wool', '20% polyester'],
       variants: [
         { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
         { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 5 }
       ],
-      sizes: ["s", "m", "l", "xl"],
       isActive: false,
-      selectedVariant: 0
+      selectedVariant: 0,
+      reviews: []
     }
   },
   methods: {
@@ -83,6 +84,9 @@ app.component('product-display', {
     removeFromCart() {
         // this.cart -= 1;
         this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
+    },
+    addReview(review) {
+      this.reviews.push(review)
     }
   },
   // computed properties provide us a performance improvement because they cache the calculated value.
@@ -95,12 +99,6 @@ app.component('product-display', {
     },
     inStock() {
       return this.variants[this.selectedVariant].quantity
-    },
-    saleMessage() {
-      if (this.onSale) {
-          return this.brand + ' ' + this.product + ' is on sale.'
-      }
-      return ''
     },
     shipping() {
       if (this.premium) {
