@@ -23,12 +23,12 @@ app.component('product-display', {
         <p v-if="inStock">$ {{ price }} + Shipping ($ {{shipping}})</p>
         <p v-else class="no-stock">Out of Stock</p>
         
-        <p>Socks straight out of a JavaScript framework!</p> 
-        <p>These socks are soft, strong and will keep you toasty through the winter months.</p>
+        <p>Socks straight out of a JavaScript framework! <br/>
+				These socks are soft, strong and will keep you toasty through the winter months.</p>
         
         <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
         <!-- ! assign the variant color to each circle on hover through style -->
-        <ul>
+        <ul class="color-options">
 					<li v-for="(variant, index) in variants" 
           :key="variant.id" 
           @click="updateVariant(index)"
@@ -50,13 +50,17 @@ app.component('product-display', {
           @click="addToCart"
         >
           Add to Cart
-        </button>
+				</button>
         
         <button class="button confirm" @click="removeFromCart" :disabled="isActive">Remove from Cart</button>
+				<a href="#review"><h3>Leave a Review</h3></a>
+				
+				<review-list v-if="reviews.length" :reviews="reviews"></review-list>
       </div>
     </div>
-    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
-    <review-form @review-submitted="addReview"></review-form>
+		<section id="review">
+			<review-form @review-submitted="addReview"></review-form>
+		</section>
   </div>
   `,
   data() {
@@ -65,8 +69,8 @@ app.component('product-display', {
       brand: 'Vue Mastery',
       price: 7.99,
       variants: [
-        { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', price: 7.99, quantity: 0 },
-        { id: 2235, color: '#3A495E', image: './assets/images/socks_blue.jpg', price: 7.99, quantity: 5 }
+        { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', price: 7.99, quantity: 10 },
+        { id: 2235, color: '#3A495E', image: './assets/images/socks_blue.jpg', price: 7.99, quantity: 0 }
       ],
       isActive: false,
       selectedVariant: 0,
