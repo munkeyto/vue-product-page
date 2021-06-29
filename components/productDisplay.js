@@ -18,33 +18,33 @@ app.component('product-display', {
       </div>
       <div class="product-info">
         <h1>{{ title }}</h1>
+        <hr />
         
-        <p v-if="inStock">In Stock</p>
-        <p v-else>Out of Stock</p>
+        <p v-if="inStock">$ {{ price }} + Shipping ($ {{shipping}})</p>
+        <p v-else class="no-stock">Out of Stock</p>
         
-        <ul>
-          <li v-for="detail in details">{{ detail }}</li>
-        </ul>
+        <p>Socks straight out of a JavaScript framework!</p> 
+        <p>These socks are soft, strong and will keep you toasty through the winter months.</p>
         
         <!-- ! by using the v-bind directive with key atribute. We are tying the variant's id -->
         <!-- ! assign the variant color to each circle on hover through style -->
-        <div 
-          v-for="(variant, index) in variants" 
+        <ul>
+					<li v-for="(variant, index) in variants" 
           :key="variant.id" 
-          @mouseover="updateVariant(index)"
-          class="color-circle"
+          @click="updateVariant(index)"
+          class="color-circle individual-element-spacing"
           :style="{ backgroundColor: variant.color }"
-        >
-        </div>
+        	>
+					</li>
+        </ul>
 
         <!-- <a :href="url">More info here</a> -->
         <!-- ! v-on listens for an event. It is equal to the method name -->
         <!-- ! Can add a class based on condition of a certain class thorough v-binding to a class and expressions -->
         <!-- // <button class="button" v-on:click="addToCart">Add to Cart</button> -->
-        <p>Shipping {{ shipping }}</p>
 
         <button 
-          class="button"
+          class="button individual-element-spacing"
           :class="{ disabledButton: !inStock }" 
           :disabled="!inStock"
           @click="addToCart"
@@ -52,7 +52,7 @@ app.component('product-display', {
           Add to Cart
         </button>
         
-        <button class="button" @click="removeFromCart" :disabled="isActive">Remove from Cart</button>
+        <button class="button confirm" @click="removeFromCart" :disabled="isActive">Remove from Cart</button>
       </div>
     </div>
     <review-list v-if="reviews.length" :reviews="reviews"></review-list>
@@ -63,10 +63,10 @@ app.component('product-display', {
     return {
       product: 'Socks',
       brand: 'Vue Mastery',
-      details: ['50% cotton', '30% wool', '20% polyester'],
+      price: 7.99,
       variants: [
-        { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
-        { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 5 }
+        { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', price: 7.99, quantity: 0 },
+        { id: 2235, color: '#3A495E', image: './assets/images/socks_blue.jpg', price: 7.99, quantity: 5 }
       ],
       isActive: false,
       selectedVariant: 0,
@@ -102,7 +102,7 @@ app.component('product-display', {
     },
     shipping() {
       if (this.premium) {
-        return 'Free'
+        return 0
       }
       return 2.99
     }
